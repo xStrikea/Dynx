@@ -1,10 +1,12 @@
-<p align="center">
-  # RingX  
-  A script similar to Super Ring.  
-  ---
-  ![GitHub stars](https://img.shields.io/github/stars/xStrikea/RingX?style=social)
-  ![GitHub watchers](https://img.shields.io/github/watchers/xStrikea/RingX?style=social)
-</p>
+<div align="center">
+# RingX  
+A script similar to Super Ring.  
+
+---
+
+![GitHub stars](https://img.shields.io/github/stars/xStrikea/RingX?style=social)  
+![GitHub watchers](https://img.shields.io/github/watchers/xStrikea/RingX?style=social)
+</div>
 ## Overview  
 This script is similar to Super Ring. It collects nearby or distant loose parts and forms a spinning ring. You can use it to attack players. It functions like Fling. Have fun.    :)  
 
@@ -19,10 +21,23 @@ This script is similar to Super Ring. It collects nearby or distant loose parts 
 
   ---
 
-## How to use
-1.**Execute script**
-- Paste the script.
+## How to use  
+1.**Execute script**  
+- Paste the script.  
 ```lua
-loadstring(game:HttpGet(''))()
-```
+loadstring(game:HttpGet('https://raw.githubusercontent.com/xStrikea/RingX/refs/heads/main/deta/V1/RingX.lua'))()
+```  
+  
+2.**Enable switch**  
+- Open Ring  
+Press RingX off.  
+  
+3.**Change the radius value**  
+- Modify the ring radius  
+Press the > or < button.  
+
+---
+
+If you like it, please click like to support us!
+
 
