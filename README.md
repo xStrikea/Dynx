@@ -38,6 +38,11 @@ Press the > or < button.
 
 ---
 
+> ⚠️warn
+>If this script is loaded, all parts will pass through any fixed parts when the switch is turned off, causing some games to not work. If this happens, please rejoin the game.
+
+---
+
 If you like it, please click like to support us!
 
 
