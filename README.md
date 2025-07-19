@@ -38,6 +38,19 @@ Press the > or < button.
 
 ---
 
+# 🎨 RingX V1 Color Scheme
+
+| element              | Color Name        | RGB Notation         |
+|-----------------------|------------------|----------------------|
+| Primary background color            | Dark Background  | `rgb(15, 15, 15)`     |
+| Title bar background            | Header Background| `rgb(30, 30, 30)`     |
+| Button Background              | Button Background| `rgb(45, 45, 45)`     |
+| On/off background          | Active Green     | `rgb(50, 205, 50)`    |
+| Main text color             | Main Text        | `rgb(220, 220, 220)`  |
+| Watermark and secondary text        | Secondary Text   | `rgb(180, 180, 180)`  |
+
+---
+
 > ⚠️warn
 >If this script is loaded, all parts will pass through any fixed parts when the switch is turned off, causing some games to not work. If this happens, please rejoin the game.
 
