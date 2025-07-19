@@ -1,5 +1,5 @@
 <div align="center">
-# RingX  
+<h1>RingX</h1>
 A script similar to Super Ring.  
 
 ---
