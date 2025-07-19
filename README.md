@@ -17,7 +17,7 @@ This script is similar to Super Ring. It collects nearby or distant loose parts 
 2.**Radius adjustment**:The radius of the control ring.  
 3.**Sound prompts**:Enhance the sense of liveliness.  
 4.**Compatible with all Rig Types**:Supports R15 and R6.  
-- Description version V1  
+- Description version V2  
 
   ---
 
@@ -25,7 +25,7 @@ This script is similar to Super Ring. It collects nearby or distant loose parts 
 1.**Execute script**  
 - Paste the script.  
 ```lua
-loadstring(game:HttpGet('https://raw.githubusercontent.com/xStrikea/RingX/refs/heads/main/deta/V1/RingX.lua'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/xStrikea/RingX/refs/heads/main/deta/V2/RingX.lua'))()
 ```  
   
 2.**Enable switch**  
@@ -38,7 +38,7 @@ Press the > or < button.
 
 ---
 
-# 🎨 RingX V1 Color Scheme
+# 🎨 RingV2 Color Scheme
 
 | element              | Color Name        | RGB Notation         |
 |-----------------------|------------------|----------------------|
