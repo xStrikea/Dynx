@@ -1,5 +1,5 @@
 <div align="center">
-<h1>RingX</h1>
+![logo](image/logo.png)
 A script similar to Super Ring.  
 
 ---
