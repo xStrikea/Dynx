@@ -1,4 +1,3 @@
-<div align="center">
 ![logo](image/logo.png)
 A script similar to Super Ring.  
 
