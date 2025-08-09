@@ -26,6 +26,10 @@ This script is similar to Super Ring. It collects nearby or distant loose parts 
 ```lua
 loadstring(game:HttpGet('https://raw.githubusercontent.com/xStrikea/RingX/refs/heads/main/deta/V4/RingX.lua'))()
 ```  
+or
+```lua
+loadstring(game:HttpGet('https://raw.githubusercontent.com/xStrikea/RingX/refs/heads/main/deta/executor/RingX.lua'))()
+```
   
 2.**Enable switch**  
 - Open Ring  
