@@ -1,4 +1,4 @@
--- Fynx.lua (Modern Flat Notifier with Rounded Progress Bar)
+-- Fynx.lua (Modern Flat Notifier with Rounded Progress Bar & Close Button)
 -- Load: local Notifier = loadstring(game:HttpGet("https://raw.githubusercontent.com/xStrikea/Dynx/refs/heads/main/Fynx/Fynx.lua"))()
 
 local TweenService = game:GetService("TweenService")
@@ -8,7 +8,6 @@ local module = {}
 local WIDTH, HEIGHT = 440, 80
 local SPACING = 12
 local DEFAULT_DURATION = 4
-local MAX_QUEUE = 5
 
 local queues = {}
 
@@ -58,13 +57,15 @@ local function makeNotification(title, msg, theme)
     local frameCorner = Instance.new("UICorner", frame)
     frameCorner.CornerRadius = UDim.new(0,12)
 
-    -- 彩色進度條（貼合圓角）
+    -- 進度條容器 (內縮貼合圓角)
     local barContainer = Instance.new("Frame")
-    barContainer.Size = UDim2.new(1,0,0,6)
-    barContainer.Position = UDim2.new(0,0,1,-6)
+    barContainer.Size = UDim2.new(1, -24, 0, 6) -- 左右各內縮12
+    barContainer.Position = UDim2.new(0,12,1,-6)
     barContainer.BackgroundTransparency = 1
+    barContainer.ClipsDescendants = true
     barContainer.Parent = frame
 
+    -- 進度條
     local bar = Instance.new("Frame")
     bar.Size = UDim2.new(1,0,1,0)
     bar.Position = UDim2.new(0,0,0,0)
@@ -102,7 +103,18 @@ local function makeNotification(title, msg, theme)
     msgLbl.Text = msg
     msgLbl.Parent = frame
 
-    return frame, bar
+    -- 關閉按鈕
+    local closeBtn = Instance.new("TextButton")
+    closeBtn.Size = UDim2.new(0,18,0,18)
+    closeBtn.Position = UDim2.new(1,-22,0,4)
+    closeBtn.BackgroundTransparency = 1
+    closeBtn.Text = "✕"
+    closeBtn.Font = Enum.Font.GothamBold
+    closeBtn.TextSize = 14
+    closeBtn.TextColor3 = Color3.fromRGB(200,200,200)
+    closeBtn.Parent = frame
+
+    return frame, bar, closeBtn
 end
 
 -- 動畫：顯示
@@ -137,20 +149,25 @@ function module:Notify(opts)
     end
 
     local theme = (opts.Type and THEMES[opts.Type]) or THEMES.Info
-    local notif, bar = makeNotification(opts.Title or "訊息", opts.Message or "", theme)
+    local notif, bar, closeBtn = makeNotification(opts.Title or "訊息", opts.Message or "", theme)
     notif.Parent = state.Container
-
     table.insert(state.Items, notif)
     animateIn(notif)
 
-    -- 時間條動畫（寬度縮短）
+    -- 時間條動畫
     TweenService:Create(bar, TweenInfo.new(opts.Duration or DEFAULT_DURATION, Enum.EasingStyle.Linear), {Size=UDim2.new(0,0,1,0)}):Play()
 
     -- 自動消失
-    task.delay(opts.Duration or DEFAULT_DURATION, function()
+    local autoClose = task.delay(opts.Duration or DEFAULT_DURATION, function()
         if notif and notif.Parent then
             animateOut(notif)
         end
+    end)
+
+    -- 手動關閉
+    closeBtn.MouseButton1Click:Connect(function()
+        if autoClose then task.cancel(autoClose) end
+        animateOut(notif)
     end)
 end
 
