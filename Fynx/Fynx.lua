@@ -1,6 +1,3 @@
--- Fynx.lua (Modern Flat Notifier with Rounded Progress Bar & Close Button)
--- Load: local Notifier = loadstring(game:HttpGet("https://raw.githubusercontent.com/xStrikea/Dynx/refs/heads/main/Fynx/Fynx.lua"))()
-
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
 
@@ -18,7 +15,6 @@ local THEMES = {
     Info    = {Accent = Color3.fromRGB(80,180,255)}
 }
 
--- 建立 ScreenGui 與容器
 local function createGui(parent)
     local gui = Instance.new("ScreenGui")
     gui.Name = "FynxNotifier"
@@ -45,7 +41,6 @@ local function createGui(parent)
     return gui, container
 end
 
--- 建立通知框
 local function makeNotification(title, msg, theme)
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, WIDTH, 0, HEIGHT)
@@ -57,15 +52,13 @@ local function makeNotification(title, msg, theme)
     local frameCorner = Instance.new("UICorner", frame)
     frameCorner.CornerRadius = UDim.new(0,12)
 
-    -- 進度條容器 (內縮貼合圓角)
     local barContainer = Instance.new("Frame")
-    barContainer.Size = UDim2.new(1, -24, 0, 6) -- 左右各內縮12
+    barContainer.Size = UDim2.new(1, -24, 0, 6) 
     barContainer.Position = UDim2.new(0,12,1,-6)
     barContainer.BackgroundTransparency = 1
     barContainer.ClipsDescendants = true
     barContainer.Parent = frame
 
-    -- 進度條
     local bar = Instance.new("Frame")
     bar.Size = UDim2.new(1,0,1,0)
     bar.Position = UDim2.new(0,0,0,0)
@@ -77,7 +70,6 @@ local function makeNotification(title, msg, theme)
     local barCorner = Instance.new("UICorner", bar)
     barCorner.CornerRadius = UDim.new(0,3)
 
-    -- 標題
     local titleLbl = Instance.new("TextLabel")
     titleLbl.BackgroundTransparency = 1
     titleLbl.Position = UDim2.new(0,14,0,10)
@@ -89,7 +81,6 @@ local function makeNotification(title, msg, theme)
     titleLbl.Text = title
     titleLbl.Parent = frame
 
-    -- 內容
     local msgLbl = Instance.new("TextLabel")
     msgLbl.BackgroundTransparency = 1
     msgLbl.Position = UDim2.new(0,14,0,36)
@@ -103,12 +94,11 @@ local function makeNotification(title, msg, theme)
     msgLbl.Text = msg
     msgLbl.Parent = frame
 
-    -- 關閉按鈕
     local closeBtn = Instance.new("TextButton")
     closeBtn.Size = UDim2.new(0,18,0,18)
     closeBtn.Position = UDim2.new(1,-22,0,4)
     closeBtn.BackgroundTransparency = 1
-    closeBtn.Text = "✕"
+    closeBtn.Text = "X"
     closeBtn.Font = Enum.Font.GothamBold
     closeBtn.TextSize = 14
     closeBtn.TextColor3 = Color3.fromRGB(200,200,200)
@@ -117,7 +107,6 @@ local function makeNotification(title, msg, theme)
     return frame, bar, closeBtn
 end
 
--- 動畫：顯示
 local function animateIn(frame)
     frame.Size = UDim2.new(0, WIDTH, 0, 0)
     frame.BackgroundTransparency = 1
@@ -126,7 +115,6 @@ local function animateIn(frame)
     TweenService:Create(frame, TweenInfo.new(0.25), {BackgroundTransparency = 0.15}):Play()
 end
 
--- 動畫：消失
 local function animateOut(frame)
     TweenService:Create(frame, TweenInfo.new(0.25), {BackgroundTransparency = 1}):Play()
     TweenService:Create(frame, TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.In),
@@ -134,7 +122,6 @@ local function animateOut(frame)
     task.delay(0.3, function() if frame then frame:Destroy() end end)
 end
 
--- 顯示通知
 function module:Notify(opts)
     local player = Players.LocalPlayer
     if not player then return end
@@ -149,22 +136,19 @@ function module:Notify(opts)
     end
 
     local theme = (opts.Type and THEMES[opts.Type]) or THEMES.Info
-    local notif, bar, closeBtn = makeNotification(opts.Title or "訊息", opts.Message or "", theme)
+    local notif, bar, closeBtn = makeNotification(opts.Title or "Message", opts.Message or "", theme)
     notif.Parent = state.Container
     table.insert(state.Items, notif)
     animateIn(notif)
 
-    -- 時間條動畫
     TweenService:Create(bar, TweenInfo.new(opts.Duration or DEFAULT_DURATION, Enum.EasingStyle.Linear), {Size=UDim2.new(0,0,1,0)}):Play()
 
-    -- 自動消失
     local autoClose = task.delay(opts.Duration or DEFAULT_DURATION, function()
         if notif and notif.Parent then
             animateOut(notif)
         end
     end)
 
-    -- 手動關閉
     closeBtn.MouseButton1Click:Connect(function()
         if autoClose then task.cancel(autoClose) end
         animateOut(notif)
@@ -172,7 +156,7 @@ function module:Notify(opts)
 end
 
 function module.Simple(msg, duration)
-    module:Notify({Title="提示", Message=msg, Duration=duration})
+    module:Notify({Title="Hint", Message=msg, Duration=duration})
 end
 
 return module
