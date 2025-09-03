@@ -1,4 +1,4 @@
--- Fynx.lua (Modern Flat Notifier)
+-- Fynx.lua (Modern Flat Notifier with Rounded Progress Bar)
 -- Load: local Notifier = loadstring(game:HttpGet("https://raw.githubusercontent.com/xStrikea/Dynx/refs/heads/main/Fynx/Fynx.lua"))()
 
 local TweenService = game:GetService("TweenService")
@@ -55,18 +55,26 @@ local function makeNotification(title, msg, theme)
     frame.BorderSizePixel = 0
     frame.ClipsDescendants = true
 
-    local corner = Instance.new("UICorner", frame)
-    corner.CornerRadius = UDim.new(0,12)
+    local frameCorner = Instance.new("UICorner", frame)
+    frameCorner.CornerRadius = UDim.new(0,12)
 
-    -- 彩色底部時間條
+    -- 彩色進度條（貼合圓角）
+    local barContainer = Instance.new("Frame")
+    barContainer.Size = UDim2.new(1,0,0,6)
+    barContainer.Position = UDim2.new(0,0,1,-6)
+    barContainer.BackgroundTransparency = 1
+    barContainer.Parent = frame
+
     local bar = Instance.new("Frame")
-    bar.Size = UDim2.new(1,0,0,4)
-    bar.Position = UDim2.new(0,0,1,-4)
+    bar.Size = UDim2.new(1,0,1,0)
+    bar.Position = UDim2.new(0,0,0,0)
     bar.BackgroundColor3 = theme.Accent
     bar.BorderSizePixel = 0
-    bar.Parent = frame
+    bar.ClipsDescendants = true
+    bar.Parent = barContainer
+
     local barCorner = Instance.new("UICorner", bar)
-    barCorner.CornerRadius = UDim.new(0,2)
+    barCorner.CornerRadius = UDim.new(0,3)
 
     -- 標題
     local titleLbl = Instance.new("TextLabel")
@@ -128,15 +136,15 @@ function module:Notify(opts)
         state.Container = container
     end
 
-    local theme = THEMES[opts.Type] or THEMES.Info
+    local theme = (opts.Type and THEMES[opts.Type]) or THEMES.Info
     local notif, bar = makeNotification(opts.Title or "訊息", opts.Message or "", theme)
     notif.Parent = state.Container
 
     table.insert(state.Items, notif)
     animateIn(notif)
 
-    -- 時間條動畫
-    TweenService:Create(bar, TweenInfo.new(opts.Duration or DEFAULT_DURATION, Enum.EasingStyle.Linear), {Size=UDim2.new(0,0,0,4)}):Play()
+    -- 時間條動畫（寬度縮短）
+    TweenService:Create(bar, TweenInfo.new(opts.Duration or DEFAULT_DURATION, Enum.EasingStyle.Linear), {Size=UDim2.new(0,0,1,0)}):Play()
 
     -- 自動消失
     task.delay(opts.Duration or DEFAULT_DURATION, function()
